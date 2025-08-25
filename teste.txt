@@ -1,0 +1,21 @@
+time_casa,time_fora,dia_jogo,hora_jogo
+Bragantino,Fluminense,sáb.,16:00
+Cruzeiro,Internacional,sáb.,18:30
+Grêmio,Ceará,sáb.,21:00
+Bahia,Santos,dom.,16:00
+Vasco,Corinthians,dom.,16:00
+Fortaleza,Mirassol,dom.,18:30
+Juventude,Botafogo,dom.,18:30
+São Paulo,Atlético-MG,dom.,20:30
+Palmeiras,Sport,seg.,19:00
+Flamengo,Vitória,seg.,21:00
+Ceará,Juventude,30 de ago.,16:00
+Botafogo,Bragantino,30 de ago.,18:30
+Cruzeiro,São Paulo,30 de ago.,21:00
+Flamengo,Grêmio,31 de ago.,16:00
+Santos,Fluminense,31 de ago.,16:00
+Corinthians,Palmeiras,31 de ago.,18:30
+Mirassol,Bahia,31 de ago.,18:30
+Vitória,Atlético-MG,31 de ago.,18:30
+Internacional,Fortaleza,31 de ago.,20:30
+Sport,Vasco,31 de ago.,20:30
