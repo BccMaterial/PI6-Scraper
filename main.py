@@ -3,7 +3,9 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import csv, time
+from datetime import datetime
+from pathlib import Path
+import csv, time 
 
 chrome_options = Options()
 chrome_options.add_argument("--incognito")
@@ -66,7 +68,12 @@ try:
     if len(linhas) == 0:
         print("Nenhum jogo encontrado, saindo.")
     else:
-        with open("output/dados.csv", "w", newline='', encoding='utf-8') as f:
+        current_date = datetime.now().strftime("%Y-%m-%d")
+        open_mode = "x"
+        output_path = f"output/{current_date}-dados.csv"
+        if Path(output_path).exists():
+            open_mode = "w"
+        with open(output_path, open_mode, newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
             writer.writerow(['time_casa', 'time_fora', 'dia_jogo', 'hora_jogo','mult_vitoria_time_1','mult_empate','mult_vitoria_time_2'])
 
@@ -93,7 +100,7 @@ try:
                 except Exception as e:
                     print(f"Erro ao extrair uma linha: {e}")
 
-        print(f"{len(linhas)} jogos salvos em outputs/dados.csv")
+        print(f"{len(linhas)} jogos salvos em {output_path}")
 finally:
     driver.quit()
 
