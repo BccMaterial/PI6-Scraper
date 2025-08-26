@@ -58,20 +58,28 @@ try:
         time.sleep(1)
 
     # Tira print para verificar o que está na tela
-    driver.save_screenshot("pagina_apos_modais.png")
-    print("Screenshot salva como pagina_apos_modais.png")
+    driver.save_screenshot("output/pagina_apos_modais.png")
+    print("Screenshot salva em output/pagina_apos_modais.png")
 
     if len(linhas) == 0:
         print("Nenhum jogo encontrado, saindo.")
     else:
-        with open("dados.csv", "w", newline='', encoding='utf-8') as f:
+        with open("output/dados.csv", "w", newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
-            writer.writerow(['time_casa', 'time_fora', 'dia_jogo', 'hora_jogo'])
+            writer.writerow(['time_casa', 'time_fora', 'dia_jogo', 'hora_jogo','mult_vitoria_time_1','mult_empate','mult_vitoria_time_2'])
 
             for linha in linhas:
                 try:
                     time_casa = linha.find_element(By.CSS_SELECTOR,
                         'div.KambiBC-event-participants > div:nth-child(1) > div.KambiBC-event-participants__name-participant-name').text.strip()
+
+                    botoes = linha.find_elements(By.CSS_SELECTOR, 'div.KambiBC-bet-offer__outcomes button')
+                    odds = [x.text.strip() for x in botoes[:len(botoes)-2]]
+                    
+                    print(f"Odds encontradas: {odds}")
+                    mult_vitoria_time_1 = odds[0]
+                    mult_empate = odds[1]
+                    mult_vitoria_time_2 = odds[2]
 
                     time_fora = linha.find_element(By.CSS_SELECTOR,
                         'div.KambiBC-event-participants > div:nth-child(2) > div.KambiBC-event-participants__name-participant-name').text.strip()
@@ -79,11 +87,11 @@ try:
                     dia_jogo = linha.find_element(By.CSS_SELECTOR, 'span.KambiBC-event-item__start-time--date').text.strip()
                     hora_jogo = linha.find_element(By.CSS_SELECTOR, 'span.KambiBC-event-item__start-time--time').text.strip()
 
-                    writer.writerow([time_casa, time_fora, dia_jogo, hora_jogo])
+                    writer.writerow([time_casa, time_fora, dia_jogo, hora_jogo, mult_vitoria_time_1, mult_empate, mult_vitoria_time_2])
                 except Exception as e:
                     print(f"Erro ao extrair uma linha: {e}")
 
-        print(f"{len(linhas)} jogos salvos em dados.csv")
+        print(f"{len(linhas)} jogos salvos em outputs/dados.csv")
 
 finally:
     driver.quit()
