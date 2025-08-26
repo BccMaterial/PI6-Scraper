@@ -3,8 +3,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import csv
-import time
+import csv, time
 
 chrome_options = Options()
 chrome_options.add_argument("--incognito")
@@ -14,7 +13,10 @@ chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64
 
 driver = webdriver.Chrome(options=chrome_options)
 
+# Envolvendo todo o script em um try...finally, para garantir que sempre sairemos do driver
 try:
+    print("Fazendo scraping do Stake.bet...")
+
     driver.get("https://stake.bet.br/esportes/futebol/brasil/brasileirao-serie-a")
 
     wait = WebDriverWait(driver, 20)
@@ -37,7 +39,7 @@ try:
         aceitar_18.click()
         print("Confirmação de 18 anos aceita.")
     except Exception as e:
-        print("Botão de confirmação 18 anos não encontrado ou já aceito.", e)
+        print(f"Botão de confirmação 18 anos não encontrado ou já aceito:\n{e}")
 
     # Dá um scroll para garantir que os jogos sejam carregados
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -92,7 +94,6 @@ try:
                     print(f"Erro ao extrair uma linha: {e}")
 
         print(f"{len(linhas)} jogos salvos em outputs/dados.csv")
-
 finally:
     driver.quit()
 
