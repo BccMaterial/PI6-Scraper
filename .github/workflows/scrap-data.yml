@@ -33,7 +33,7 @@ jobs:
         git config user.email "github-actions[bot]@users.noreply.github.com"
     - name: Commit Changes
       run: |
-        git add ./outputs
+        git add ./output
         git commit -m 'Data Scrap (AUTOMATED COMMIT)'
     - name: Push changes
       env:
