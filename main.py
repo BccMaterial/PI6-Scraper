@@ -22,7 +22,7 @@ driver = webdriver.Chrome(options=chrome_options)
 try:
     print("Fazendo scraping do Stake.bet...")
 
-    driver.get("https://stake.bet.br/esportes/futebol/brasil/brasileirao-serie-a")
+    driver.get("https://stake.bet.br/esportes/futebol/brasil/brasileirao-serie-a?regionKey=BR")
 
     wait = WebDriverWait(driver, 20)
 
