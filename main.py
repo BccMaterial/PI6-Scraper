@@ -11,6 +11,9 @@ chrome_options = Options()
 chrome_options.add_argument("--incognito")
 chrome_options.add_argument('--ignore-certificate-errors')
 chrome_options.add_argument('--ignore-ssl-errors')
+chrome_options.add_argument("--no-sandbox");
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--headless")
 chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36')
 
 driver = webdriver.Chrome(options=chrome_options)
@@ -81,10 +84,8 @@ try:
                 try:
                     time_casa = linha.find_element(By.CSS_SELECTOR,
                         'div.KambiBC-event-participants > div:nth-child(1) > div.KambiBC-event-participants__name-participant-name').text.strip()
-
                     botoes = linha.find_elements(By.CSS_SELECTOR, 'div.KambiBC-bet-offer__outcomes button')
-                    odds = [x.text.strip() for x in botoes[:len(botoes)-2]]
-                    
+                    odds = [x.text.strip() for x in botoes]
                     print(f"Odds encontradas: {odds}")
                     mult_vitoria_time_1 = odds[0]
                     mult_empate = odds[1]
