@@ -16,6 +16,7 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--headless")
 chrome_options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36')
 
+print("Iniciando o chrome...")
 driver = webdriver.Chrome(options=chrome_options)
 
 # Envolvendo todo o script em um try...finally, para garantir que sempre sairemos do driver
