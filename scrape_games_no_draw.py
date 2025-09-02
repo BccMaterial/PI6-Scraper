@@ -83,16 +83,19 @@ try:
             open_mode = "w"
         with open(output_path, open_mode, newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
-            writer.writerow(['time_casa', 'time_fora', 'dia_jogo', 'hora_jogo','mult_vitoria_time_1','mult_vitoria_time_2'])
+            writer.writerow(['time_casa', 'time_fora', 'dia_jogo', 'hora_jogo','mult_vitoria_time_1','mult_vitoria_time_2', 'num_apostas'])
 
             for linha in linhas:
                 try:
+                    regex_number = "\\d+\\.\\d+"
+                    regex_bets = "\\d+"
                     time_casa = linha.find_element(By.CSS_SELECTOR,
                         'div.KambiBC-event-participants > div:nth-child(1) > div.KambiBC-event-participants__name-participant-name').text.strip()
                     botoes = linha.find_elements(By.CSS_SELECTOR, 'div.KambiBC-bet-offer__outcomes button')
+                    num_apostas = linha.find_element(By.CSS_SELECTOR, 'div.KambiBC-sandwich-filter_show-more-right-text').text.strip()
+                    num_apostas = int(re.search(regex_bets, num_apostas).group(0))
                     odds = [x.text.strip() for x in botoes]
                     print(f"Odds encontradas: {odds}")
-                    regex_number = "\d+\.\d+"
                     mult_vitoria_time_1 = float(re.search(regex_number, odds[0]).group(0))
                     mult_vitoria_time_2 = float(re.search(regex_number, odds[1]).group(0))
 
@@ -102,7 +105,7 @@ try:
                     dia_jogo = linha.find_element(By.CSS_SELECTOR, 'span.KambiBC-event-item__start-time--date').text.strip()
                     hora_jogo = linha.find_element(By.CSS_SELECTOR, 'span.KambiBC-event-item__start-time--time').text.strip()
 
-                    writer.writerow([time_casa, time_fora, dia_jogo, hora_jogo, mult_vitoria_time_1, mult_vitoria_time_2])
+                    writer.writerow([time_casa, time_fora, dia_jogo, hora_jogo, mult_vitoria_time_1, mult_vitoria_time_2, num_apostas])
                 except Exception as e:
                     print(f"Erro ao extrair uma linha: {e}")
 
