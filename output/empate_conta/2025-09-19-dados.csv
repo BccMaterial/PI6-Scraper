@@ -1,0 +1,23 @@
+time_casa,time_fora,dia_jogo,hora_jogo,mult_vitoria_time_1,mult_empate,mult_vitoria_time_2,num_apostas
+Vitória,Fluminense,sáb.,16:00,2.70,3.00,2.80,381
+Botafogo,Atlético-MG,sáb.,18:30,1.62,3.55,6.00,383
+Ceará,Bahia,sáb.,18:30,2.65,3.05,2.75,314
+Palmeiras,Fortaleza,sáb.,21:00,1.34,4.70,9.50,339
+Mirassol,Juventude,dom.,16:00,1.50,4.00,6.75,330
+Flamengo,Vasco,dom.,17:30,1.36,4.70,8.50,332
+Internacional,Grêmio,dom.,17:30,1.73,3.40,5.10,276
+Sport,Corinthians,dom.,17:30,2.85,3.05,2.60,304
+Cruzeiro,Bragantino,dom.,20:30,1.52,4.00,6.40,371
+Santos,São Paulo,dom.,20:30,2.50,3.00,3.00,315
+Grêmio,Botafogo,qua.,19:30,3.10,3.30,2.30,270
+Vasco,Bahia,qua.,19:30,2.45,3.30,2.85,284
+Fortaleza,Sport,27 de set.,16:00,1.76,3.50,4.75,259
+Juventude,Internacional,27 de set.,18:30,3.70,3.25,2.06,257
+Vasco,Cruzeiro,27 de set.,18:30,2.85,3.25,2.48,282
+Atlético-MG,Mirassol,27 de set.,21:00,1.97,3.45,3.75,304
+Grêmio,Vitória,28 de set.,11:00,1.68,3.55,5.40,272
+Bahia,Palmeiras,28 de set.,16:00,2.70,3.20,2.63,279
+Fluminense,Botafogo,28 de set.,16:00,2.38,3.15,3.10,300
+Bragantino,Santos,28 de set.,18:30,2.04,3.40,3.60,288
+Corinthians,Flamengo,28 de set.,20:30,3.95,3.40,1.95,277
+São Paulo,Ceará,29 de set.,20:00,1.58,3.75,6.10,299
