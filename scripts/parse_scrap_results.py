@@ -65,8 +65,6 @@ def add_date_column(file_name: str, day: str, time: str):
 
 def distinct_teams_from_df_list(df_all):
 
-    print(f"Total de linhas processadas: {len(df_all)}")
-
     distinct_teams = (
         pd.concat([df_all["time_casa"], df_all["time_fora"]])
         .drop_duplicates()
@@ -80,6 +78,17 @@ def distinct_teams_from_df_list(df_all):
     )
     df_times["id"] = df_times.index + 1
     return df_times
+
+
+def distinct_games_from_df_list(df_all):
+    df_teams = (
+        df_all[["time_casa", "time_fora", "data_jogo"]]
+        .drop_duplicates()
+        .reset_index(drop=True)
+    )
+    df_teams = df_teams.reset_index().rename(columns={"index": "id_jogo"})
+    df_teams["id_jogo"] = df_teams["id_jogo"] + 1
+    return df_teams
 
 
 if __name__ == "__main__":
@@ -111,8 +120,14 @@ if __name__ == "__main__":
         exit(0)
 
     df_all = pd.concat(dataframes, ignore_index=True)
+    print(f"Total de linhas processadas: {len(df_all)}")
 
     df_times = distinct_teams_from_df_list(df_all)
     if not df_times.empty:
         df_times.to_csv("./output/tables/times.csv", index=False)
         print('Times salvos no arquivo "./output/tables/times.csv"')
+
+    df_games = distinct_games_from_df_list(df_all)
+    if not df_games.empty:
+        df_games.to_csv("./output/tables/jogos.csv", index=False)
+        print('Jogos salvos no arquivo "./output/tables/jogos.csv"')

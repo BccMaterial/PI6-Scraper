@@ -1,0 +1,141 @@
+id_jogo,time_casa,time_fora,data_jogo
+1,Flamengo,Grêmio,2025-08-31 16:00:00
+2,Santos,Fluminense,2025-08-31 16:00:00
+3,Corinthians,Palmeiras,2025-08-31 18:30:00
+4,Mirassol,Bahia,2025-08-31 18:30:00
+5,Vitória,Atlético-MG,2025-08-31 18:30:00
+6,Internacional,Fortaleza,2025-08-31 20:30:00
+7,Sport,Vasco,2025-08-31 20:30:00
+8,Fortaleza,Vitória,2025-09-13 16:00:00
+9,Grêmio,Mirassol,2025-09-13 16:00:00
+10,Palmeiras,Internacional,2025-09-13 18:30:00
+11,Fluminense,Corinthians,2025-09-13 21:00:00
+12,Bragantino,Sport,2025-09-14 11:00:00
+13,Atlético-MG,Santos,2025-09-14 16:00:00
+14,Juventude,Flamengo,2025-09-14 16:00:00
+15,São Paulo,Botafogo,2025-09-14 17:30:00
+16,Vasco,Ceará,2025-09-14 20:30:00
+17,Ceará,Juventude,2025-08-30 16:00:00
+18,Botafogo,Bragantino,2025-08-30 18:30:00
+19,Cruzeiro,São Paulo,2025-08-30 21:00:00
+20,Fortaleza,Sport,2025-09-27 16:00:00
+21,Juventude,Internacional,2025-09-27 18:30:00
+22,Vasco,Cruzeiro,2025-09-27 18:30:00
+23,Atlético-MG,Mirassol,2025-09-27 21:00:00
+24,Grêmio,Vitória,2025-09-28 11:00:00
+25,Bahia,Palmeiras,2025-09-28 16:00:00
+26,Fluminense,Botafogo,2025-09-28 16:00:00
+27,Bragantino,Santos,2025-09-28 18:30:00
+28,Corinthians,Flamengo,2025-09-28 20:30:00
+29,São Paulo,Ceará,2025-09-29 20:00:00
+30,Atlético-MG,Juventude,2025-09-30 21:30:00
+31,Mirassol,Bragantino,2025-10-01 19:00:00
+32,Palmeiras,Vasco,2025-10-01 19:00:00
+33,Sport,Fluminense,2025-10-01 19:00:00
+34,Internacional,Corinthians,2025-10-01 19:30:00
+35,Botafogo,Bahia,2025-10-01 21:30:00
+36,Santos,Grêmio,2025-10-01 21:30:00
+37,Vitória,Ceará,2025-10-02 19:00:00
+38,Fortaleza,São Paulo,2025-10-02 19:30:00
+39,Flamengo,Cruzeiro,2025-10-02 20:30:00
+40,Bragantino,Grêmio,2025-10-04 18:30:00
+41,Fluminense,Atlético-MG,2025-10-04 18:30:00
+42,Internacional,Botafogo,2025-10-04 18:30:00
+43,Corinthians,Mirassol,2025-10-04 21:00:00
+44,São Paulo,Palmeiras,2025-10-05 16:00:00
+45,Vasco,Vitória,2025-10-05 16:00:00
+46,Bahia,Flamengo,2025-10-05 18:30:00
+47,Juventude,Fortaleza,2025-10-05 18:30:00
+48,Ceará,Santos,2025-10-05 20:30:00
+49,Cruzeiro,Sport,2025-10-05 20:30:00
+50,Atlético-MG,Sport,2025-10-08 19:00:00
+51,Mirassol,Fluminense,2025-10-08 21:00:00
+52,Palmeiras,Juventude,2025-10-11 19:00:00
+53,Palmeiras,Bragantino,2025-10-15 19:00:00
+54,Botafogo,Flamengo,2025-10-15 19:30:00
+55,Mirassol,Internacional,2025-10-15 20:00:00
+56,Sport,Ceará,2025-10-15 20:00:00
+57,Atlético-MG,Cruzeiro,2025-10-15 21:30:00
+58,Fortaleza,Vasco,2025-10-15 21:30:00
+59,Santos,Corinthians,2025-10-15 21:30:00
+60,Grêmio,São Paulo,2025-10-16 19:00:00
+61,Fluminense,Juventude,2025-10-16 21:30:00
+62,Vitória,Bahia,2025-10-16 21:30:00
+63,Bragantino,Corinthians,2025-11-05 19:00:00
+64,Sport,Juventude,2025-11-05 19:00:00
+65,Vitória,Internacional,2025-11-05 19:00:00
+66,Botafogo,Vasco,2025-11-05 19:30:00
+67,Atlético-MG,Bahia,2025-11-05 20:00:00
+68,Grêmio,Cruzeiro,2025-11-05 20:00:00
+69,São Paulo,Flamengo,2025-11-05 21:30:00
+70,Fluminense,Mirassol,2025-11-06 19:30:00
+71,Ceará,Fortaleza,2025-11-06 20:00:00
+72,Palmeiras,Santos,2025-11-06 21:30:00
+73,Sport,Atlético-MG,2025-11-08 16:00:00
+74,Vasco,Juventude,2025-11-08 18:00:00
+75,Internacional,Bahia,2025-11-08 18:30:00
+76,São Paulo,Bragantino,2025-11-08 21:00:00
+77,Corinthians,Ceará,2025-11-09 16:00:00
+78,Cruzeiro,Fluminense,2025-11-09 16:00:00
+79,Vitória,Botafogo,2025-11-09 16:00:00
+80,Flamengo,Santos,2025-11-09 18:30:00
+81,Fortaleza,Grêmio,2025-11-09 20:30:00
+82,Mirassol,Palmeiras,2025-11-09 20:30:00
+83,Atlético-MG,Ceará,2025-10-25 16:00:00
+84,Vitória,Corinthians,2025-10-25 16:00:00
+85,Fluminense,Internacional,2025-10-25 17:30:00
+86,Sport,Mirassol,2025-10-25 18:30:00
+87,Fortaleza,Flamengo,2025-10-25 19:30:00
+88,São Paulo,Bahia,2025-10-25 21:30:00
+89,Botafogo,Santos,2025-10-26 16:00:00
+90,Grêmio,Juventude,2025-10-26 16:00:00
+91,Bragantino,Vasco,2025-10-26 18:30:00
+92,Palmeiras,Cruzeiro,2025-10-26 20:30:00
+93,Fluminense,Ceará,2025-10-29 19:00:00
+94,Cruzeiro,Vitória,2025-11-01 16:00:00
+95,Santos,Fortaleza,2025-11-01 16:00:00
+96,Mirassol,Botafogo,2025-11-01 18:00:00
+97,Flamengo,Sport,2025-11-01 21:00:00
+98,Bahia,Bragantino,2025-11-02 16:00:00
+99,Ceará,Fluminense,2025-11-02 16:00:00
+100,Corinthians,Grêmio,2025-11-02 16:00:00
+101,Internacional,Atlético-MG,2025-11-02 18:30:00
+102,Juventude,Palmeiras,2025-11-02 18:30:00
+103,Vasco,São Paulo,2025-11-02 20:30:00
+104,Bahia,Cruzeiro,2025-09-15 20:00:00
+105,Botafogo,Mirassol,2025-09-17 19:30:00
+106,Vitória,Fluminense,2025-09-20 16:00:00
+107,Botafogo,Atlético-MG,2025-09-20 18:30:00
+108,Ceará,Bahia,2025-09-20 18:30:00
+109,Palmeiras,Fortaleza,2025-09-20 21:00:00
+110,Mirassol,Juventude,2025-09-21 16:00:00
+111,Flamengo,Vasco,2025-09-21 17:30:00
+112,Internacional,Grêmio,2025-09-21 17:30:00
+113,Sport,Corinthians,2025-09-21 17:30:00
+114,Cruzeiro,Bragantino,2025-09-21 20:30:00
+115,Santos,São Paulo,2025-09-21 20:30:00
+116,Grêmio,Botafogo,2025-09-24 19:30:00
+117,Vasco,Bahia,2025-09-24 19:30:00
+118,Bahia,Internacional,2025-10-22 19:00:00
+119,Ceará,Juventude,2025-08-30 19:00:00
+120,Botafogo,Bragantino,2025-08-30 21:30:00
+121,Corinthians,Atlético-MG,2025-10-18 18:30:00
+122,Internacional,Sport,2025-10-18 18:30:00
+123,Cruzeiro,Fortaleza,2025-10-18 21:00:00
+124,Ceará,Botafogo,2025-10-19 16:00:00
+125,Flamengo,Palmeiras,2025-10-19 16:00:00
+126,Mirassol,São Paulo,2025-10-19 16:00:00
+127,Bahia,Grêmio,2025-10-19 20:30:00
+128,Juventude,Bragantino,2025-10-20 19:00:00
+129,Vasco,Fluminense,2025-10-20 19:30:00
+130,Santos,Vitória,2025-10-20 21:30:00
+131,Internacional,Sport,2025-10-19 18:30:00
+132,Fluminense,Internacional,2025-10-25 21:30:00
+133,Grêmio,Juventude,2025-10-27 20:00:00
+134,Flamengo,Palmeiras,2025-10-19 18:30:00
+135,Atlético-MG,Fortaleza,2025-11-12 20:30:00
+136,Sport,Flamengo,2025-11-15 18:30:00
+137,Santos,Palmeiras,2025-11-15 21:00:00
+138,Bragantino,Atlético-MG,2025-11-16 19:00:00
+139,Palmeiras,Santos,2025-10-15 19:00:00
+140,Juventude,Santos,2025-10-20 19:00:00
