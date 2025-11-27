@@ -63,6 +63,25 @@ def add_date_column(file_name: str, day: str, time: str):
     return new_date
 
 
+def distinct_teams_from_df_list(df_all):
+
+    print(f"Total de linhas processadas: {len(df_all)}")
+
+    distinct_teams = (
+        pd.concat([df_all["time_casa"], df_all["time_fora"]])
+        .drop_duplicates()
+        .sort_values()
+        .reset_index(drop=True)
+    )
+    df_times = (
+        distinct_teams.to_frame(name="time")
+        .reset_index()
+        .rename(columns={"index": "id"})
+    )
+    df_times["id"] = df_times.index + 1
+    return df_times
+
+
 if __name__ == "__main__":
     empate_conta_path = "./output/empate_conta"
     empate_conta_files = list_directory(empate_conta_path)
@@ -88,24 +107,12 @@ if __name__ == "__main__":
         print(f"Arquivo {file_name} processado: {len(df)} linhas adicionadas")
 
     if not dataframes:
-        print("Nenhum dataframe foi processado. Saindo...")
+        print("Aviso: Nenhum dataframe foi processado. Saindo...")
         exit(0)
 
     df_all = pd.concat(dataframes, ignore_index=True)
-    print(f"Total de linhas processadas: {len(df_all)}")
 
-    distinct_teams = (
-        pd.concat([df_all["time_casa"], df_all["time_fora"]])
-        .drop_duplicates()
-        .sort_values()
-        .reset_index(drop=True)
-    )
-    df_times = (
-        distinct_teams.to_frame(name="time")
-        .reset_index()
-        .rename(columns={"index": "id"})
-    )
-    df_times["id"] = df_times.index + 1
-
-    df_times.to_csv("./output/tables/times.csv", index=False)
-    print('Times salvos no arquivo "./output/tables/times.csv"')
+    df_times = distinct_teams_from_df_list(df_all)
+    if not df_times.empty:
+        df_times.to_csv("./output/tables/times.csv", index=False)
+        print('Times salvos no arquivo "./output/tables/times.csv"')
