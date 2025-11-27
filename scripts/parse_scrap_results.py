@@ -136,7 +136,16 @@ if __name__ == "__main__":
         exit(0)
 
     df_all = pd.concat(dataframes, ignore_index=True)
+    df_all = df_all.reset_index().rename(columns={"index": "id_odd"})
+    df_all["id_odd"] = df_all["id_odd"] + 1
     print(f"Total de linhas processadas: {len(df_all)}")
+
+    if not df_all.empty:
+        df_all.to_csv("./output/tables/odds.csv", index=False)
+        print('Odds salvas no arquivo "./output/tables/odds.csv"')
+    else:
+        print("Aviso: nenhuma linha no dataframe principal. Saindo...")
+        exit(0)
 
     df_times = distinct_teams_from_df_list(df_all)
     if not df_times.empty:
