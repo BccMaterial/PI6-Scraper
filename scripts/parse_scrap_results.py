@@ -40,7 +40,6 @@ def add_date_column(file_name: str, day: str, time: str):
         "nov.": 11,
         "dez.": 12,
     }
-    print(time.split(":"))
     splitted_time = [int(x) for x in time.split(":")]
     parsed_date = datetime.strptime(file_name.replace("-dados.csv", ""), "%Y-%m-%d")
     parsed_date = parsed_date.replace(hour=splitted_time[0], minute=splitted_time[1])
@@ -65,20 +64,18 @@ def add_date_column(file_name: str, day: str, time: str):
 
 
 if __name__ == "__main__":
-    empate_anula_path = "./output/empate_anula"
     empate_conta_path = "./output/empate_conta"
-
-    empate_anula_files = list_directory(empate_anula_path)
     empate_conta_files = list_directory(empate_conta_path)
+    dataframes = list()
 
     for file_name in empate_conta_files:
         file_name = str(file_name)
-        print(f"Validando arquivo {file_name}")
         df = pd.read_csv(
             os.path.join(empate_conta_path, file_name),
             dtype={"dia_jogo": str, "hora_jogo": str},
         )
         if len(df) == 0:
+            print(f"Arquivo {file_name} processado: {len(df)} linhas adicionadas")
             continue
 
         df["dia_jogo"] = df["dia_jogo"].astype(str)
@@ -87,5 +84,28 @@ if __name__ == "__main__":
             lambda row: add_date_column(file_name, row["dia_jogo"], row["hora_jogo"]),
             axis=1,
         )
-        print(df)
-        input()
+        dataframes.append(df)
+        print(f"Arquivo {file_name} processado: {len(df)} linhas adicionadas")
+
+    if not dataframes:
+        print("Nenhum dataframe foi processado. Saindo...")
+        exit(0)
+
+    df_all = pd.concat(dataframes, ignore_index=True)
+    print(f"Total de linhas processadas: {len(df_all)}")
+
+    distinct_teams = (
+        pd.concat([df_all["time_casa"], df_all["time_fora"]])
+        .drop_duplicates()
+        .sort_values()
+        .reset_index(drop=True)
+    )
+    df_times = (
+        distinct_teams.to_frame(name="time")
+        .reset_index()
+        .rename(columns={"index": "id"})
+    )
+    df_times["id"] = df_times.index + 1
+
+    df_times.to_csv("./output/tables/times.csv", index=False)
+    print('Times salvos no arquivo "./output/tables/times.csv"')
