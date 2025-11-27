@@ -81,13 +81,27 @@ def distinct_teams_from_df_list(df_all):
 
 
 def distinct_games_from_df_list(df_all):
-    df_teams = (
-        df_all[["time_casa", "time_fora", "data_jogo"]]
-        .drop_duplicates()
-        .reset_index(drop=True)
+    df_all = df_all.copy()
+    df_all["data_jogo"] = pd.to_datetime(df_all["data_jogo"])
+    df_all["data_sem_horario"] = df_all["data_jogo"].dt.date
+
+    # Encontrar o índice da última partida para cada combinação de time_casa, time_fora e data
+    idx = df_all.groupby(["time_casa", "time_fora", "data_sem_horario"])[
+        "data_jogo"
+    ].idxmax()
+
+    # Selecionar as linhas com os horários mais recentes
+    df_teams = df_all.loc[idx, ["time_casa", "time_fora", "data_jogo"]].reset_index(
+        drop=True
     )
+
+    # Remover a coluna auxiliar
+    df_teams = df_teams.drop(columns=["data_sem_horario"], errors="ignore")
+
+    # Adicionar ID sequencial
     df_teams = df_teams.reset_index().rename(columns={"index": "id_jogo"})
     df_teams["id_jogo"] = df_teams["id_jogo"] + 1
+
     return df_teams
 
 
