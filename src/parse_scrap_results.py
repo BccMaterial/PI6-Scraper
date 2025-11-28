@@ -4,16 +4,14 @@ import pandas as pd
 
 from utils import file, transform
 
-if __name__ == "__main__":
-    output_directory = "./output/parsed_tables"
-    empate_conta_directory = "./output/empate_conta"
-    empate_conta_files = file.list_directory(empate_conta_directory)
-    dataframes = list()
 
-    for file_name in empate_conta_files:
+def create_general_dataframe(file_list, files_directory):
+    dataframes = list()
+    print(f"File list: {file_list}")
+    for file_name in file_list:
         file_name = str(file_name)
         df = pd.read_csv(
-            os.path.join(empate_conta_directory, file_name),
+            os.path.join(files_directory, file_name),
             dtype={"dia_jogo": str, "hora_jogo": str},
         )
         if len(df) == 0:
@@ -32,21 +30,26 @@ if __name__ == "__main__":
         print(f"Arquivo {file_name} processado: {len(df)} linhas adicionadas")
 
     if not dataframes:
-        print("Aviso: Nenhum dataframe foi processado. Saindo...")
-        exit(0)
+        print("Aviso: Nenhum dataframe foi processado.")
+        return pd.DataFrame()
 
     df_all = pd.concat(dataframes, ignore_index=True)
     df_all = df_all.reset_index().rename(columns={"index": "id_odd"})
     df_all["id_odd"] = df_all["id_odd"] + 1
-    print(f"Total de linhas processadas: {len(df_all)}")
 
-    if not df_all.empty:
-        df_all.to_csv(f"{output_directory}/odds.csv", index=False)
-        print('Odds salvas no arquivo "./output/parsed_tables/odds.csv"')
-    else:
-        print("Aviso: nenhuma linha no dataframe principal. Saindo...")
-        exit(0)
+    return df_all
 
+
+def create_tables(df_list, output_directory):
+    if all(df.empty for df in df_list):
+        print("Aviso: nenhuma linha nos dataframes recebidos!")
+        return
+
+    for i, df in enumerate(df_list):
+        df.to_csv(f"{output_directory}/odds_{i}.csv", index=False)
+        print(f"Dataframe {i} salvo em {output_directory}/odds_{i}.csv")
+
+    df_all = pd.concat(df_list, ignore_index=True)
     df_times = transform.distinct_teams_from_df_list(df_all)
     if not df_times.empty:
         df_times.to_csv(f"{output_directory}/times.csv", index=False)
@@ -56,3 +59,20 @@ if __name__ == "__main__":
     if not df_games.empty:
         df_games.to_csv(f"{output_directory}/jogos.csv", index=False)
         print(f'Jogos salvos no arquivo "{output_directory}/jogos.csv"')
+
+
+if __name__ == "__main__":
+    output_directory = "./output/gen_tables"
+
+    empate_conta_directory = "./output/empate_conta"
+    empate_anula_directory = "./output/empate_anula"
+    empate_conta_files = file.list_directory(empate_conta_directory)
+    empate_anula_files = file.list_directory(empate_anula_directory)
+
+    df_anula_all = create_general_dataframe(empate_anula_files, empate_anula_directory)
+    df_conta_all = create_general_dataframe(empate_conta_files, empate_conta_directory)
+    print(f"Total de linhas processadas:")
+    print(f"\tEmpate anula: {len(df_anula_all)}")
+    print(f"\tEmpate conta: {len(df_conta_all)}")
+
+    create_tables([df_anula_all, df_conta_all], output_directory)
