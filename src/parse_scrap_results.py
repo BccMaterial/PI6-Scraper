@@ -46,6 +46,7 @@ def create_tables(df_list, output_directory):
         return
 
     for i, df in enumerate(df_list):
+        df.sort_values("data_jogo")
         df.to_csv(f"{output_directory}/odds_{i}.csv", index=False)
         print(f"Dataframe {i} salvo em {output_directory}/odds_{i}.csv")
 
@@ -57,6 +58,7 @@ def create_tables(df_list, output_directory):
 
     df_games = transform.distinct_games_from_df_list(df_all)
     if not df_games.empty:
+        df.sort_values("data_jogo")
         df_games.to_csv(f"{output_directory}/jogos.csv", index=False)
         print(f'Jogos salvos no arquivo "{output_directory}/jogos.csv"')
 

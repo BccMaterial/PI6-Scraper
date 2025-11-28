@@ -78,10 +78,8 @@ def distinct_games_from_df_list(df_all):
     ].idxmax()
 
     # Selecionar as linhas com os horários mais recentes
-    df_teams = (
-        df_all.loc[idx, ["time_casa", "time_fora", "data_jogo"]]
-        .sort_values("data_jogo")
-        .reset_index(drop=True)
+    df_teams = df_all.loc[idx, ["time_casa", "time_fora", "data_jogo"]].reset_index(
+        drop=True
     )
 
     # Remover a coluna auxiliar
