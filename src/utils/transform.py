@@ -1,19 +1,6 @@
-import os
 from datetime import datetime, timedelta
 
 import pandas as pd
-
-
-def list_directory(dir_path: str):
-    try:
-        items = os.listdir(dir_path)
-        files = [file for file in items if os.path.isfile(os.path.join(dir_path, file))]
-        return files
-    except FileNotFoundError:
-        print(f'ERRO: Diretório "{dir_path}" não encontrado!')
-        return []
-    except PermissionError:
-        print(f'ERRO: Permissão negada ao diretório "{dir_path}"!')
 
 
 def add_date_column(file_name: str, day: str, time: str):
@@ -105,54 +92,3 @@ def distinct_games_from_df_list(df_all):
     df_teams["id_jogo"] = df_teams["id_jogo"] + 1
 
     return df_teams
-
-
-if __name__ == "__main__":
-    empate_conta_path = "./output/empate_conta"
-    empate_conta_files = list_directory(empate_conta_path)
-    dataframes = list()
-
-    for file_name in empate_conta_files:
-        file_name = str(file_name)
-        df = pd.read_csv(
-            os.path.join(empate_conta_path, file_name),
-            dtype={"dia_jogo": str, "hora_jogo": str},
-        )
-        if len(df) == 0:
-            print(f"Arquivo {file_name} processado: {len(df)} linhas adicionadas")
-            continue
-
-        df["dia_jogo"] = df["dia_jogo"].astype(str)
-        df["hora_jogo"] = df["hora_jogo"].astype(str)
-        df["data_jogo"] = df.apply(
-            lambda row: add_date_column(file_name, row["dia_jogo"], row["hora_jogo"]),
-            axis=1,
-        )
-        dataframes.append(df)
-        print(f"Arquivo {file_name} processado: {len(df)} linhas adicionadas")
-
-    if not dataframes:
-        print("Aviso: Nenhum dataframe foi processado. Saindo...")
-        exit(0)
-
-    df_all = pd.concat(dataframes, ignore_index=True)
-    df_all = df_all.reset_index().rename(columns={"index": "id_odd"})
-    df_all["id_odd"] = df_all["id_odd"] + 1
-    print(f"Total de linhas processadas: {len(df_all)}")
-
-    if not df_all.empty:
-        df_all.to_csv("./output/tables/odds.csv", index=False)
-        print('Odds salvas no arquivo "./output/tables/odds.csv"')
-    else:
-        print("Aviso: nenhuma linha no dataframe principal. Saindo...")
-        exit(0)
-
-    df_times = distinct_teams_from_df_list(df_all)
-    if not df_times.empty:
-        df_times.to_csv("./output/tables/times.csv", index=False)
-        print('Times salvos no arquivo "./output/tables/times.csv"')
-
-    df_games = distinct_games_from_df_list(df_all)
-    if not df_games.empty:
-        df_games.to_csv("./output/tables/jogos.csv", index=False)
-        print('Jogos salvos no arquivo "./output/tables/jogos.csv"')
