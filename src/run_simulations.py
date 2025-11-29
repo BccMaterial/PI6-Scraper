@@ -17,10 +17,40 @@ def get_team_id(df, team):
         return None
 
 
+def get_all_last_odds(df):
+    # Encontrar os índices das linhas com data_extracao máxima em cada grupo
+    idx = df.groupby(
+        [
+            "time_casa",
+            "time_fora",
+            "data_jogo",
+        ]
+    )["data_extracao"].idxmax()
+
+    # Selecionar as linhas completas usando os índices
+    return df.loc[idx].reset_index(drop=True)
+
+
 if __name__ == "__main__":
     df = pd.read_csv("./output/tables/jogos.csv")
     teams_df = pd.read_csv("./output/gen_tables/times.csv")
+    last_odds_df = get_all_last_odds(pd.read_csv("./output/gen_tables/odds_1.csv"))
     output_file = "./output/gen_tables/apostas.csv"
+
+    df = df.merge(
+        last_odds_df[
+            [
+                "time_casa",
+                "time_fora",
+                "data_jogo",
+                "mult_vitoria_time_1",
+                "mult_empate",
+                "mult_vitoria_time_2",
+            ]
+        ],
+        on=["time_casa", "time_fora", "data_jogo"],
+        how="left",
+    )
 
     print(df)
     print()
@@ -38,11 +68,13 @@ if __name__ == "__main__":
                 match i:
                     case 0:
                         selected = obj["time_casa"]
-                        multiplier_column = ""
+                        multiplier_column = "mult_vitoria_time_1"
                     case 1:
                         selected = "Empate"
+                        multiplier_column = "mult_empate"
                     case 2:
                         selected = obj["time_fora"]
+                        multiplier_column = "mult_vitoria_time_2"
                 bet_obj = {
                     **obj,
                     "id_time_fora": get_team_id(teams_df, obj["time_fora"]),
@@ -50,7 +82,14 @@ if __name__ == "__main__":
                     "id_aposta": last_id,
                     "palpite": selected,
                     "valor": 200.0,
+                    "multiplicador_aposta": obj[multiplier_column],
                 }
+
+                bet_obj["lucro"] = (
+                    bet_obj["valor"] * bet_obj[multiplier_column]
+                    if bet_obj["vencedor"] == bet_obj["palpite"]
+                    else bet_obj["valor"] * -1
+                )
                 last_id += 1
                 bets_df = pd.concat(
                     [bets_df, pd.DataFrame([bet_obj])], ignore_index=True
