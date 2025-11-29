@@ -113,6 +113,7 @@ def get_all_last_odds(df):
 
 
 def merge_last_odds_with_games(games_df, last_odds_df):
+    games_df.dropna(subset=["num_apostas"])
     return games_df.merge(
         last_odds_df[
             [
