@@ -26,6 +26,9 @@ def create_general_dataframe(file_list, files_directory):
             ),
             axis=1,
         )
+        df["data_extracao"] = df.apply(
+            lambda _: transform.add_extration_date_column(file_name), axis=1
+        )
         dataframes.append(df)
         print(f"Arquivo {file_name} processado: {len(df)} linhas adicionadas")
 

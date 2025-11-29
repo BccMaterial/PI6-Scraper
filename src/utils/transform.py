@@ -3,6 +3,12 @@ from datetime import datetime, timedelta
 import pandas as pd
 
 
+def add_extration_date_column(file_name: str):
+    parsed_date = datetime.strptime(file_name.replace("-dados.csv", ""), "%Y-%m-%d")
+    parsed_date = parsed_date.replace(hour=0, minute=00, second=0)
+    return parsed_date
+
+
 def add_date_column(file_name: str, day: str, time: str):
     weekdays = {
         "seg.": 0,
