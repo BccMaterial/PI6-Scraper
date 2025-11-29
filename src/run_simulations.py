@@ -1,5 +1,7 @@
 import pandas as pd
 
+from utils import transform
+
 
 def distribute_bets(obj):
     b_house = int(obj["num_apostas"] * obj["pb_vitoria_casa"])
@@ -17,24 +19,12 @@ def get_team_id(df, team):
         return None
 
 
-def get_all_last_odds(df):
-    # Encontrar os índices das linhas com data_extracao máxima em cada grupo
-    idx = df.groupby(
-        [
-            "time_casa",
-            "time_fora",
-            "data_jogo",
-        ]
-    )["data_extracao"].idxmax()
-
-    # Selecionar as linhas completas usando os índices
-    return df.loc[idx].reset_index(drop=True)
-
-
 if __name__ == "__main__":
     df = pd.read_csv("./output/tables/jogos.csv")
     teams_df = pd.read_csv("./output/gen_tables/times.csv")
-    last_odds_df = get_all_last_odds(pd.read_csv("./output/gen_tables/odds_1.csv"))
+    last_odds_df = transform.get_all_last_odds(
+        pd.read_csv("./output/gen_tables/odds_1.csv")
+    )
     output_file = "./output/gen_tables/apostas.csv"
 
     df = df.merge(

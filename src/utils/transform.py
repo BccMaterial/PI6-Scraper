@@ -5,7 +5,7 @@ import pandas as pd
 
 def add_extration_date_column(file_name: str):
     parsed_date = datetime.strptime(file_name.replace("-dados.csv", ""), "%Y-%m-%d")
-    parsed_date = parsed_date.replace(hour=0, minute=00, second=0)
+    parsed_date = parsed_date.replace(hour=0, minute=0, second=0)
     return parsed_date
 
 
@@ -96,3 +96,16 @@ def distinct_games_from_df_list(df_all):
     df_teams["id_jogo"] = df_teams["id_jogo"] + 1
 
     return df_teams
+
+def get_all_last_odds(df):
+    # Encontrar os índices das linhas com data_extracao máxima em cada grupo
+    idx = df.groupby(
+        [
+            "time_casa",
+            "time_fora",
+            "data_jogo",
+        ]
+    )["data_extracao"].idxmax()
+
+    # Selecionar as linhas completas usando os índices
+    return df.loc[idx].reset_index(drop=True)

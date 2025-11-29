@@ -50,7 +50,9 @@ def create_tables(df_list, output_directory):
 
     for i, df in enumerate(df_list):
         df.sort_values("data_jogo")
+        df_last_odds = transform.get_all_last_odds(df)
         df.to_csv(f"{output_directory}/odds_{i}.csv", index=False)
+        df_last_odds.to_csv(f"{output_directory}/last_odds_{i}.csv", index=False)
         print(f"Dataframe {i} salvo em {output_directory}/odds_{i}.csv")
 
     df_all = pd.concat(df_list, ignore_index=True)
