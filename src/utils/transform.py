@@ -97,6 +97,7 @@ def distinct_games_from_df_list(df_all):
 
     return df_teams
 
+
 def get_all_last_odds(df):
     # Encontrar os índices das linhas com data_extracao máxima em cada grupo
     idx = df.groupby(
@@ -109,3 +110,29 @@ def get_all_last_odds(df):
 
     # Selecionar as linhas completas usando os índices
     return df.loc[idx].reset_index(drop=True)
+
+
+def merge_last_odds_with_games(games_df, last_odds_df):
+    return games_df.merge(
+        last_odds_df[
+            [
+                "time_casa",
+                "time_fora",
+                "data_jogo",
+                "mult_vitoria_time_1",
+                "mult_empate",
+                "mult_vitoria_time_2",
+            ]
+        ],
+        on=["time_casa", "time_fora", "data_jogo"],
+        how="left",
+    )
+
+
+def get_team_id(df, team):
+    found_team = df[df["time"] == team].head(1)
+
+    if not found_team.empty:
+        return found_team.iloc[0]["id"]
+    else:
+        return None

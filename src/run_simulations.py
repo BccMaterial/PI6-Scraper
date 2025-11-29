@@ -10,15 +10,6 @@ def distribute_bets(obj):
     return [b_house, b_draw, b_out]
 
 
-def get_team_id(df, team):
-    found_team = df[df["time"] == team].head(1)
-
-    if not found_team.empty:
-        return found_team.iloc[0]["id"]
-    else:
-        return None
-
-
 if __name__ == "__main__":
     df = pd.read_csv("./output/tables/jogos.csv")
     teams_df = pd.read_csv("./output/gen_tables/times.csv")
@@ -27,20 +18,7 @@ if __name__ == "__main__":
     )
     output_file = "./output/gen_tables/apostas.csv"
 
-    df = df.merge(
-        last_odds_df[
-            [
-                "time_casa",
-                "time_fora",
-                "data_jogo",
-                "mult_vitoria_time_1",
-                "mult_empate",
-                "mult_vitoria_time_2",
-            ]
-        ],
-        on=["time_casa", "time_fora", "data_jogo"],
-        how="left",
-    )
+    df = transform.merge_last_odds_with_games(df, last_odds_df)
 
     print(df)
     print()
@@ -67,8 +45,8 @@ if __name__ == "__main__":
                         multiplier_column = "mult_vitoria_time_2"
                 bet_obj = {
                     **obj,
-                    "id_time_fora": get_team_id(teams_df, obj["time_fora"]),
-                    "id_time_casa": get_team_id(teams_df, obj["time_casa"]),
+                    "id_time_fora": transform.get_team_id(teams_df, obj["time_fora"]),
+                    "id_time_casa": transform.get_team_id(teams_df, obj["time_casa"]),
                     "id_aposta": last_id,
                     "palpite": selected,
                     "valor": 200.0,
