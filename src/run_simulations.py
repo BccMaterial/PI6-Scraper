@@ -8,8 +8,20 @@ def distribute_bets(obj):
     return [b_house, b_draw, b_out]
 
 
+def get_team_id(df, team):
+    found_team = df[df["time"] == team].head(1)
+
+    if not found_team.empty:
+        return found_team.iloc[0]["id"]
+    else:
+        return None
+
+
 if __name__ == "__main__":
     df = pd.read_csv("./output/tables/jogos.csv")
+    teams_df = pd.read_csv("./output/gen_tables/times.csv")
+    output_file = "./output/gen_tables/apostas.csv"
+
     print(df)
     print()
     print(f"Total de apostas: {df["num_apostas"].sum()}")
@@ -22,15 +34,19 @@ if __name__ == "__main__":
         for i, bets_count in enumerate(bet_tuple):
             for _ in range(0, bets_count):
                 selected = None
+                multiplier_column = None
                 match i:
                     case 0:
                         selected = obj["time_casa"]
+                        multiplier_column = ""
                     case 1:
                         selected = "Empate"
                     case 2:
                         selected = obj["time_fora"]
                 bet_obj = {
                     **obj,
+                    "id_time_fora": get_team_id(teams_df, obj["time_fora"]),
+                    "id_time_casa": get_team_id(teams_df, obj["time_casa"]),
                     "id_aposta": last_id,
                     "palpite": selected,
                     "valor": 200.0,
@@ -39,5 +55,5 @@ if __name__ == "__main__":
                 bets_df = pd.concat(
                     [bets_df, pd.DataFrame([bet_obj])], ignore_index=True
                 )
-    bets_df.to_csv("./output/gen_tables/bets.csv", index=False)
-    print("Apostas feitas, salvo em ./output/tables/bets.csv!")
+    bets_df.to_csv(output_file, index=False)
+    print(f'Apostas feitas, salvo em "{output_file}"!')
