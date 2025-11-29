@@ -83,6 +83,7 @@ if __name__ == "__main__":
                     "palpite": selected,
                     "valor": 200.0,
                     "multiplicador_aposta": obj[multiplier_column],
+                    "id_perfil": None,
                 }
 
                 bet_obj["lucro"] = (
