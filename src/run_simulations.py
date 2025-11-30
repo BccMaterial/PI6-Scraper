@@ -11,7 +11,7 @@ def distribute_bets(obj):
 
 
 if __name__ == "__main__":
-    df = pd.read_csv("./output/tables/jogos.csv")
+    df = pd.read_csv("./output/tables/jogos_rod.csv")
     teams_df = pd.read_csv("./output/gen_tables/times.csv")
     last_odds_df = transform.get_all_last_odds(
         pd.read_csv("./output/gen_tables/odds_1.csv")
