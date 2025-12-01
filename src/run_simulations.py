@@ -1,3 +1,5 @@
+from operator import mul
+
 import pandas as pd
 
 from utils import transform
@@ -11,12 +13,13 @@ def distribute_bets(obj):
 
 
 if __name__ == "__main__":
+    bet_value = 50.0
     df = pd.read_csv("./output/tables/jogos_rod.csv")
     teams_df = pd.read_csv("./output/gen_tables/times.csv")
     last_odds_df = transform.get_all_last_odds(
         pd.read_csv("./output/gen_tables/odds_1.csv")
     )
-    output_file = "./output/gen_tables/apostas.csv"
+    output_file = "./output/gen_tables/apostas_2.csv"
 
     df = transform.merge_last_odds_with_games(df, last_odds_df)
 
@@ -33,6 +36,7 @@ if __name__ == "__main__":
             for _ in range(0, bets_count):
                 selected = None
                 multiplier_column = None
+
                 match i:
                     case 0:
                         selected = obj["time_casa"]
@@ -43,13 +47,14 @@ if __name__ == "__main__":
                     case 2:
                         selected = obj["time_fora"]
                         multiplier_column = "mult_vitoria_time_2"
+                # bet_value = calculate_value(50, obj[multiplier_column])
                 bet_obj = {
                     **obj,
                     "id_time_fora": transform.get_team_id(teams_df, obj["time_fora"]),
                     "id_time_casa": transform.get_team_id(teams_df, obj["time_casa"]),
                     "id_aposta": last_id,
                     "palpite": selected,
-                    "valor": 200.0,
+                    "valor": bet_value,
                     "multiplicador_aposta": obj[multiplier_column],
                     "id_perfil": None,
                 }
@@ -60,6 +65,7 @@ if __name__ == "__main__":
                     else bet_obj["valor"] * -1
                 )
                 last_id += 1
+                print(f"Aposta {last_id} feita!")
                 bets_df = pd.concat(
                     [bets_df, pd.DataFrame([bet_obj])], ignore_index=True
                 )
