@@ -46,7 +46,7 @@ if __name__ == "__main__":
 
     prof_obj = prof_obj[0]
     print("Pegando rodadas...")
-    df_games = pd.read_csv("./output/tables/jogos.csv")
+    df_games = pd.read_csv("./output/tables/jogos_rod.csv")
     df_teams = pd.read_csv("./output/tables/times.csv")
     df_bets = pd.read_csv("./output/tables/apostas.csv")
     df_games = transform.merge_last_odds_with_games(df_games, df_odds)
