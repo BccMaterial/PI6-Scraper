@@ -52,6 +52,9 @@ if __name__ == "__main__":
                     **obj,
                     "id_time_fora": transform.get_team_id(teams_df, obj["time_fora"]),
                     "id_time_casa": transform.get_team_id(teams_df, obj["time_casa"]),
+                    "id_time_vencedor": transform.get_team_id(
+                        teams_df, obj["vencedor"]
+                    ),
                     "id_aposta": last_id,
                     "palpite": selected,
                     "valor": bet_value,
@@ -59,6 +62,9 @@ if __name__ == "__main__":
                     "id_perfil": None,
                 }
 
+                bet_obj["id_time_palpite"] = transform.get_team_id(
+                    teams_df, bet_obj["palpite"]
+                )
                 bet_obj["lucro"] = (
                     bet_obj["valor"] * bet_obj[multiplier_column]
                     if bet_obj["vencedor"] == bet_obj["palpite"]
