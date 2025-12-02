@@ -129,6 +129,21 @@ def merge_last_odds_with_games(games_df, last_odds_df):
         how="left",
     )
 
+def merge_last_odds_with_games_no_draw(games_df, last_odds_df):
+    games_df.dropna(subset=["num_apostas"])
+    return games_df.merge(
+        last_odds_df[
+            [
+                "time_casa",
+                "time_fora",
+                "data_jogo",
+                "mult_vitoria_time_1",
+                "mult_vitoria_time_2",
+            ]
+        ],
+        on=["time_casa", "time_fora", "data_jogo"],
+        how="left",
+    )
 
 def get_team_id(df, team):
     found_team = df[df["time"] == team].head(1)

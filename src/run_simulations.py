@@ -11,6 +11,12 @@ def distribute_bets(obj):
     b_out = int(obj["num_apostas"] * obj["pb_derrota_casa"])
     return [b_house, b_draw, b_out]
 
+def calculate_fair_probs(obj):
+    p_win = 1 / obj["mult_vitoria_time_1"]
+    p_draw = 1 / obj["mult_empate"]
+    p_lose = 1 / obj["mult_vitoria_time_2"]
+    p_total = p_win + p_draw + p_lose
+    return [p_win, p_draw, p_lose, p_total]
 
 if __name__ == "__main__":
     bet_value = 50.0
@@ -62,6 +68,16 @@ if __name__ == "__main__":
                     "id_perfil": None,
                 }
 
+                p_win, p_draw, p_lose, p_total = calculate_fair_probs(bet_obj)
+
+                bet_obj = {
+                    **bet_obj,
+                    "pb_vitoria_casa_real": p_win,
+                    "pb_empate_real": p_draw,
+                    "pb_derrota_casa_real": p_lose,
+                    "pb_total_real": p_total,
+                }
+                
                 bet_obj["id_time_palpite"] = transform.get_team_id(
                     teams_df, bet_obj["palpite"]
                 )
